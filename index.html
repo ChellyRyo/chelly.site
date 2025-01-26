@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chelly.site</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="orb" style="top: 20%; left: 20%"></div>
+    <div class="orb" style="top: 60%; left: 70%"></div>
+    <div class="cursor"></div>
+    <h1 class="welcome-text">chelly.site</h1>
+    <div class="welcome-message">Welcome to my space</div>
+    <script>
+        const cursor = document.querySelector('.cursor');
+        const welcomeText = document.querySelector('.welcome-text');
+        const welcomeMessage = document.querySelector('.welcome-message');
+
+        function updateCursor(e) {
+            requestAnimationFrame(() => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            });
+        }
+
+        document.addEventListener('mousemove', updateCursor, { passive: true });
+
+        welcomeText.addEventListener('mouseenter', () => {
+            cursor.classList.add('active');
+            welcomeMessage.classList.add('visible');
+        });
+
+        welcomeText.addEventListener('mouseleave', () => {
+            cursor.classList.remove('active');
+            welcomeMessage.classList.remove('visible');
+        });
+    </script>
+</body>
+</html>
