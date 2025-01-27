@@ -16,13 +16,24 @@
         const welcomeText = document.querySelector('.welcome-text');
         const welcomeMessage = document.querySelector('.welcome-message');
 
-        welcomeText.addEventListener('mouseenter', () => {
-            welcomeMessage.classList.add('visible');
+        // 支持触摸和鼠标事件
+        const showMessage = () => welcomeMessage.classList.add('visible');
+        const hideMessage = () => welcomeMessage.classList.remove('visible');
+
+        // 触摸事件
+        welcomeText.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // 防止触发鼠标事件
+            showMessage();
         });
 
-        welcomeText.addEventListener('mouseleave', () => {
-            welcomeMessage.classList.remove('visible');
+        welcomeText.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            hideMessage();
         });
+
+        // 鼠标事件
+        welcomeText.addEventListener('mouseenter', showMessage);
+        welcomeText.addEventListener('mouseleave', hideMessage);
     </script>
 </body>
 </html>

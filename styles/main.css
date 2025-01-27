@@ -137,9 +137,35 @@ body {
 @media (max-width: 768px) {
     .welcome-text {
         font-size: 2.5rem;
-        padding: 0 20px;
+        padding: 20px;
+        margin-bottom: 30px;
     }
-    .cursor {
-        display: none;
+    .welcome-message {
+        font-size: 1.2rem;
+        padding: 15px 30px;
+        top: 60%;
+    }
+    .orb {
+        width: 200px;
+        height: 200px;
+        opacity: 0.15;
+    }
+    .orb:nth-child(2) {
+        width: 150px;
+        height: 150px;
+    }
+    @keyframes orbFloat {
+        0% {
+            transform: translate(0, 0) rotate(0deg);
+        }
+        33% {
+            transform: translate(20vw, -15vh) rotate(120deg);
+        }
+        66% {
+            transform: translate(-15vw, 20vh) rotate(240deg);
+        }
+        100% {
+            transform: translate(0, 0) rotate(360deg);
+        }
     }
 }
