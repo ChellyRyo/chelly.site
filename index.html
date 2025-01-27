@@ -21,12 +21,25 @@
         const hideMessage = () => welcomeMessage.classList.remove('visible');
 
         // 触摸事件
+        let touchStartTime;
         welcomeText.addEventListener('touchstart', (e) => {
             e.preventDefault(); // 防止触发鼠标事件
+            touchStartTime = Date.now();
             showMessage();
         });
 
         welcomeText.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            const touchEndTime = Date.now();
+            const touchDuration = touchEndTime - touchStartTime;
+            
+            // 确保不是快速滑动
+            if (touchDuration > 50) {
+                hideMessage();
+            }
+        });
+
+        welcomeText.addEventListener('touchcancel', (e) => {
             e.preventDefault();
             hideMessage();
         });
