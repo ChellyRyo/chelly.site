@@ -15,6 +15,8 @@ body {
     background: #fff;
     overflow: hidden;
     position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
 .welcome-text {
@@ -34,12 +36,14 @@ body {
     animation: shine 12s ease infinite;
     padding: 40px;
     margin-bottom: 60px;
-    will-change: transform, letter-spacing;
+    will-change: transform, letter-spacing, opacity;
     backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-font-smoothing: antialiased;
 }
 
 .welcome-text:hover {
-    transform: scale(1.02);
+    transform: scale(1.02) translateZ(0);
     letter-spacing: 0.01em;
     text-shadow: 0 0 30px rgba(0, 0, 0, 0.12);
     background: linear-gradient(90deg, #0a192f, #00f5d4, #805ad5, #0a192f);
@@ -175,16 +179,22 @@ body {
         font-size: 2.5rem;
         padding: 20px;
         margin-bottom: 30px;
+        transform: translateZ(0);
     }
     .welcome-message {
         font-size: 1.2rem;
         padding: 15px 30px;
         top: 60%;
+        transform: translate(-50%, 20px) translateZ(0);
+    }
+    .welcome-message.visible {
+        transform: translate(-50%, 0) translateZ(0);
     }
     .orb {
         width: 200px;
         height: 200px;
         opacity: 0.15;
+        will-change: transform;
     }
     .orb:nth-child(2) {
         width: 150px;
@@ -192,16 +202,16 @@ body {
     }
     @keyframes orbFloat {
         0% {
-            transform: translate(0, 0) rotate(0deg);
+            transform: translate(0, 0) rotate(0deg) translateZ(0);
         }
         33% {
-            transform: translate(20vw, -15vh) rotate(120deg);
+            transform: translate(20vw, -15vh) rotate(120deg) translateZ(0);
         }
         66% {
-            transform: translate(-15vw, 20vh) rotate(240deg);
+            transform: translate(-15vw, 20vh) rotate(240deg) translateZ(0);
         }
         100% {
-            transform: translate(0, 0) rotate(360deg);
+            transform: translate(0, 0) rotate(360deg) translateZ(0);
         }
     }
 }

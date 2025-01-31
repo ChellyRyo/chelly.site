@@ -17,14 +17,51 @@
         const welcomeText = document.querySelector('.welcome-text');
         const welcomeMessage = document.querySelector('.welcome-message');
 
-        // 支持触摸和鼠标事件
+        // 显示/隐藏消息的函数
         const showMessage = () => welcomeMessage.classList.add('visible');
         const hideMessage = () => welcomeMessage.classList.remove('visible');
 
-        // 触摸事件
+        // 检测是否为移动设备
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        if (isMobile) {
+            // 移动端使用点击事件
+            welcomeText.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (welcomeMessage.classList.contains('visible')) {
+                    hideMessage();
+                } else {
+                    showMessage();
+                }
+            });
+        } else {
+            // 桌面端保持悬停效果
+            welcomeText.addEventListener('mouseenter', showMessage);
+            welcomeText.addEventListener('mouseleave', hideMessage);
+        }
+
+        // 鼠标事件
+        welcomeText.addEventListener('mouseenter', showMessage);
+        welcomeText.addEventListener('mouseleave', hideMessage);
+
+        // 时间显示功能
+        const timeDisplay = document.querySelector('.time-display');
+        const updateTime = () => {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            timeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+        };
+
+        // 初始化时间显示
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // 移动端触摸事件优化
         let touchStartTime;
         welcomeText.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // 防止触发鼠标事件
+            e.preventDefault();
             touchStartTime = Date.now();
             showMessage();
         });
@@ -34,36 +71,10 @@
             const touchEndTime = Date.now();
             const touchDuration = touchEndTime - touchStartTime;
             
-            // 确保不是快速滑动
             if (touchDuration > 50) {
                 hideMessage();
             }
         });
-
-        welcomeText.addEventListener('touchcancel', (e) => {
-            e.preventDefault();
-            hideMessage();
-        });
-
-        // 鼠标事件
-        welcomeText.addEventListener('mouseenter', showMessage);
-        welcomeText.addEventListener('mouseleave', hideMessage);
-
-        // 更新时间显示
-        const timeDisplay = document.querySelector('.time-display');
-        function updateTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('zh-CN', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            timeDisplay.textContent = timeString;
-        }
-        
-        // 初始更新并设置定时器
-        updateTime();
-        setInterval(updateTime, 1000);
     </script>
 </body>
 </html>
