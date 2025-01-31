@@ -11,7 +11,8 @@
     <div class="orb" style="top: 20%; left: 20%"></div>
     <div class="orb" style="top: 60%; left: 70%"></div>
     <h1 class="welcome-text">chelly.site</h1>
-    <div class="welcome-message">Welcome to my space</div>
+    <div class="welcome-message">> return new Promise()_</div>
+    <div class="time-display"></div>
     <script>
         const welcomeText = document.querySelector('.welcome-text');
         const welcomeMessage = document.querySelector('.welcome-message');
@@ -47,6 +48,22 @@
         // 鼠标事件
         welcomeText.addEventListener('mouseenter', showMessage);
         welcomeText.addEventListener('mouseleave', hideMessage);
+
+        // 更新时间显示
+        const timeDisplay = document.querySelector('.time-display');
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('zh-CN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            timeDisplay.textContent = timeString;
+        }
+        
+        // 初始更新并设置定时器
+        updateTime();
+        setInterval(updateTime, 1000);
     </script>
 </body>
 </html>
